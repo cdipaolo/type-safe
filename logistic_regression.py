@@ -83,11 +83,13 @@ class LogReg():
         
     def cost():
         """ calculates the sum of the squared residuals of a particular weight vector
+            
+            >>> 
         """
         sum = 0
         
         for i in range(self._data.size):
-            ycaret = predict(self._data[i])
+            y_hat = predict(self._data[i])
             y = self._tags[i]
             
             sum += (ycaret - y)**2
