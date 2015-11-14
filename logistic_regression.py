@@ -17,6 +17,7 @@ class LogReg():
         >>> model.predict(-10)
         0
         """
+
         self._data = np.array(data)
 
         # add a column of 1s for the y offset feature
@@ -24,7 +25,9 @@ class LogReg():
 
         self._tags = np.array(tags)
 
-        self._weights = np.array([0]*self._data.shape[0])
+        assert _data.shape[0] == _tags.size, "Number of tags not equal to number of data sets"
+
+        self._weights = np.array([69]*self._data.shape[0])
 
         self._alpha = alpha
 
@@ -38,13 +41,13 @@ class LogReg():
         Takes the dot product of one feature and the weight vector
         and returns the result of them entered into the sigmoid function
 
-        >>> logReg = LogReg([[1, 2, 3], [0, 0, 0]], [1, 0, 0], .25, 100)
+        >>> logReg = LogReg([[1, 2, 3], [0, 0, 0]], [1, 0], .25, 100)
         >>> logReg.predict([1, 2, 3])
 
         """
         dot_p = np.dot(x, self._weight)
 
-        return (1 / (1 - np.exp(-1 * dot_p)))
+        return (1 / (1 + np.exp(-1 * dot_p)))
 
         
     def train(self):
