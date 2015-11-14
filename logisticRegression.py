@@ -74,5 +74,5 @@ class LogReg():
         's'
 
         """
-        s = 'This has been trained for %i iterations.' + '\n' +'There are %i data points.' + '\n' +'Cost overflow bullshit.' %(self._maxIter, self._data)
+        s = 'This has been trained for %i iterations.' + '\n' +'There are %i data points.' + '\n' +'Cost overflow bullshit.' %(self._maxIter, self._data.shape[0]*self._data.shape[1])
         return s 
