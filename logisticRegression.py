@@ -27,3 +27,14 @@ class LogReg:
 
 
 
+    def __repr__(self):
+        """used for making the terminal look pretty. :)
+        gives how many iterations there are, n dimensions, cost over time
+        LogRegtrains and shit. Idk actually but we'll see. yikers.
+        """
+        s = 'This has been trained for %N iterations.' \
+        '\n' \
+        +'There are %N data points.' \
+        '\n' \
+        +'Cost overflow bullshit.' %(self.N)
+        return s 
