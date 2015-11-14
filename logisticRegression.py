@@ -1,27 +1,32 @@
 import numpy as np
 
-class LogReg:
+class LogReg(self):
 
     #Uses logistic regression and gradient decent to optimize a weight vector
 
-    def __init__(trainingData, trainingTags):
+    def __init__(self, data, tags, alpha, maxIter):
         """
         The training vector is stored in two parts, the data and the tags.
         The data will be converted into numpy array
         """
         
 
-        self._trainingData = np.array(trainingData)
-        self._trainingData = 1 + self._trainingData
+        self._data = np.array(data)
+        self._data = 1 + self._data
 
+        self._tags = np.array(tags)
 
-        self._trainingTags = np.array(trainingTags)
+        self._weights = np.array()
 
+        self._alpha = alpha
 
+        self._costs = [] 
 
-    def sigmoid(feature, weight):
+        self._maxIter = maxIter
+
+    def predict(self, feature, weight):
         """
-        takes the dot product of one feature and the weight vector
+        Takes the dot product of one feature and the weight vector
         and returns the result of them entered into the sigmoid function
         """
 
