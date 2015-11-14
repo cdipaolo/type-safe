@@ -45,14 +45,13 @@ class LogReg():
         """ trains the weight vector on the training data
         """
         alpha = self._alpha
-        tempw = np.copy(self._weight)
         
         j_save_iteration = 5
 
         # going through the training data _maxIter times
         for iter in range(_maxIter):
             # initialize the gradient at 0
-            grad = 0
+            grad = [0] * (len(self._data[0]))
             # moving through the training data
             for i in range(self._data.size):
                 xi = self._data[i]
