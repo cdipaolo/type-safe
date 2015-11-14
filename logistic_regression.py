@@ -32,6 +32,7 @@ class LogReg():
 
         self._maxIter = maxIter
 
+        self._current_iterations = 0
 
     def predict(self, x):
         """
@@ -69,6 +70,9 @@ class LogReg():
             
             weightchange = np.multiply(grad, alpha)
             self._weight = np.subtract(self._weight, weightchange)
+            
+            # incrementing the number of iterations
+            self._current_iterations ++
             
             if iter % j_save_iteration == 0:
                 self._costs.append(self.cost())
