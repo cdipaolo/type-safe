@@ -24,7 +24,7 @@ class LogReg():
 
         self._tags = np.array(tags)
 
-        self._weights = np.array([]*self._data.shape[0])
+        self._weights = np.array([0]*self._data.shape[0])
 
         self._alpha = alpha
 
@@ -38,22 +38,24 @@ class LogReg():
         Takes the dot product of one feature and the weight vector
         and returns the result of them entered into the sigmoid function
 
-        >>> LogReg.predict()
+        >>> logReg = LogReg([[1, 2, 3], [0, 0, 0]], [1, 0, 0], .25, 100)
+        >>> logReg.predict([1, 2, 3])
+
         """
         dot_p = np.dot(x, self._weight)
 
         return (1 / (1 - np.exp(-1 * dot_p)))
 
         
-    def train(self):
+    def train(self, cost_save_iterations=5):
         """ trains the weight vector on the training data
         """
         alpha = self._alpha
-        tempw = np.copy(self._weight)
         
         # going through the training data _maxIter times
-        for iter in range(_maxIter):
-        
+        for iteration in range(_maxIter):
+            # initialize the gradient at 0
+            grad = [0] * (len(self._data[0]))
             # moving through the training data
             for i in range(self._data.size):
                 xi = self._data[i]
@@ -62,21 +64,42 @@ class LogReg():
                 # the target value
                 yi = self._tags[i]
                 
-                # calculating the delta by which to adjust this particular weight
-<<<<<<< HEAD:logistic_regression.py
+                # calculating the gradiend by which to adjust this particular weight
                 grad = alpha * (y_hat - yi) * xi
-        
-=======
-                delta = alpha * (hxi - yi) * xi
-
                 self._weight[k] -= delta
 
->>>>>>> 1a4c5f84434cd1a5172ee0a622b802588307073e:logisticRegression.py
                 # adjusting the ith weight by this delta
                 tempw -= delta
                 
-        self._weight = tempw
+                self._weight = tempw
 
+                grad += (hxi - yi) * xi
+            
+            weightchange = alpha * grad
+            self._weight = self._weight - weightchange
+            
+            if iteration % cost_save_iteration == 0:
+                self._costs.append(self.cost())
+        
+    def cost():
+        """ calculates the sum of the squared residuals of a particular weight vector
+        """
+        sum = 0
+        
+        for i in range(self._data.size):
+            ycaret = predict(self._data[i])
+            y = self._tags[i]
+            
+            sum += (ycaret - y)**2
+        
+        sum /= self._data.size
+        
+        return sum
+        
+    def costs():
+        """ returns all previous costs after some number of iterations
+        """
+        return self._costs
 
     def __repr__(self):
         """used for making the terminal look pretty. :)
@@ -87,5 +110,8 @@ class LogReg():
         's'
 
         """
-        s = 'This has been trained for %i iterations.' + '\n' +'There are %i data points.' + '\n' +'Cost overflow bullshit.' %(self._maxIter, self._data.shape[0]*self._data.shape[1])
+        s = 'This has been trained for %i iterations.' \
+            '\nThere are %i data points.' \
+            '\nCost overflow bullshit.' % (self._maxIter, self._data.shape[0]*self._data.shape[1])
+        
         return s 
