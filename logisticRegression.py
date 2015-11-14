@@ -27,14 +27,16 @@ class LogReg():
         self._maxIter = maxIter
 
 
-    def predict(self, feature, weight):
+    def predict(self, x):
         """
         Takes the dot product of one feature and the weight vector
         and returns the result of them entered into the sigmoid function
-        """
-        dot_p = np.dot(feature, weight)
 
-        np.exp(-1 * dot_p)
+        >>> LogReg.predict()
+        """
+        dot_p = np.dot(x, self._weight)
+
+        return (1 / (1 - np.exp(-1 * dot_p)))
 
         
     def train(self):
