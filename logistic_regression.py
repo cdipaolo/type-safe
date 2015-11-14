@@ -25,7 +25,7 @@ class LogReg():
 
         self._tags = np.array(tags)
 
-        assert _data.shape[0] == _tags.size, "Number of tags not equal to number of data sets"
+        assert self._data.shape[0] == self._tags.size, "Number of tags not equal to number of data sets"
 
         self._weights = np.array([69]*self._data.shape[0])
 
@@ -49,7 +49,6 @@ class LogReg():
         dot_p = np.dot(x, self._weight)
 
         return (1 / (1 + np.exp(-1 * dot_p)))
-
         
     def train(self):
         """ trains the weight vector on the training data
