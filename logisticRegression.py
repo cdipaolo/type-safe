@@ -47,9 +47,12 @@ class LogReg():
         alpha = self._alpha
         tempw = np.copy(self._weight)
         
+        j_save_iteration = 5
+
         # going through the training data _maxIter times
         for iter in range(_maxIter):
-        
+            # initialize the gradient at 0
+            grad = 0
             # moving through the training data
             for i in range(self._data.size):
                 xi = self._data[i]
@@ -58,16 +61,28 @@ class LogReg():
                 # the target value
                 yi = self._tags[i]
                 
-                # calculating the delta by which to adjust this particular weight
-                delta = alpha * (hxi - yi) * xi
-
-                self._weight[k] -= delta
-
-                # adjusting the ith weight by this delta
-                tempw[i] -= delta
-                
-        self._weight = tempw
-
+                grad += np.multiply((hxi - yi),xi)
+            
+            weightchange = np.multiply(grad, alpha)
+            self._weight = np.subtract(self._weight, weightchange)
+            
+            if iter % j_save_iteration == 0:
+                self._costs.append(self.cost())
+        
+    def cost():
+        """ calculates the cost of a particular weight vector
+        """
+        sum = 0
+        
+        for i in range(self._data.size):
+            ycaret = predict(self._data[i])
+            y = self._tags[i]
+            
+            sum += (ycaret - y)**2
+        
+        sum /= self._data.size
+        
+        return sum
 
     def __repr__(self):
         """used for making the terminal look pretty. :)
