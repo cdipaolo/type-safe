@@ -38,13 +38,13 @@ class LogReg():
         Takes the dot product of one feature and the weight vector
         and returns the result of them entered into the sigmoid function
 
-        >>> logReg = LogReg([[1, 2, 3], [0, 0, 0]], [1, 0, 0], .25, 100)
+        >>> logReg = LogReg([[1, 2, 3], [0, 0, 0]], [1, 0], .25, 100)
         >>> logReg.predict([1, 2, 3])
-
+        0.5
         """
         dot_p = np.dot(x, self._weight)
 
-        return (1 / (1 - np.exp(-1 * dot_p)))
+        return (1 / (1 + np.exp(-1 * dot_p)))
 
         
     def train(self, cost_save_iterations=5):
@@ -111,7 +111,7 @@ class LogReg():
         >>> logReg = LogReg([[1, 2, 3], [0, 0, 0]], [1, 0, 0], .25, 100)
         >>> logReg._costs = [4, 3, 6]
         >>> print repr(logReg)
-        This has been trained for 100 iterations.
+        This has been trained for 0 iterations.
         There are 8 data points.
         Some cost values are: 4, 3, 6.
 
@@ -121,6 +121,6 @@ class LogReg():
         s = 'This has been trained for %i iterations.' \
             '\nThere are %i data points.' \
             '\nSome cost values are: %i, %i, %i.' \
-            % (self._maxIter, datapoints, self._costs[0], cost_middle, self._costs[-1])
+            % (self._current_iterations, datapoints, self._costs[0], cost_middle, self._costs[-1])
         
         return s 
