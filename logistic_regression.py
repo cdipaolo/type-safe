@@ -4,13 +4,19 @@ class LogReg():
 
     #Uses logistic regression and gradient decent to optimize a weight vector
 
-    def __init__(self, data, tags, alpha, maxIter):
+    def __init__(self, data, tags, alpha=0.05, maxIter=100):
         """
         The training vector is stored in two parts, the data and the tags.
-        The data will be converted into numpy array
-        """
-        
+        The data will be converted into numpy array from a list
 
+        >>> model = LogReg([-10, -10, -10, -10, 10, 10, 10, 10], \
+                           [0, 0, 0, 0, 1, 1, 1, 1], alpha=0.01, maxIter=100)
+        >>> model.train()
+        >>> model.predict(10)
+        1
+        >>> model.predict(-10)
+        0
+        """
         self._data = np.array(data)
 
         # add a column of 1s for the y offset feature
@@ -41,31 +47,38 @@ class LogReg():
         return (1 / (1 - np.exp(-1 * dot_p)))
 
         
-    def train(self):
+    def train(self, cost_save_iterations=5):
         """ trains the weight vector on the training data
         """
         alpha = self._alpha
         
-        j_save_iteration = 5
-
         # going through the training data _maxIter times
-        for iter in range(_maxIter):
+        for iteration in range(_maxIter):
             # initialize the gradient at 0
             grad = [0] * (len(self._data[0]))
             # moving through the training data
             for i in range(self._data.size):
                 xi = self._data[i]
                 # the predicted value
-                hxi = self.predict(xi)
+                y_hat = self.predict(xi)
                 # the target value
                 yi = self._tags[i]
                 
-                grad += np.multiply((hxi - yi),xi)
+                # calculating the gradiend by which to adjust this particular weight
+                grad = alpha * (y_hat - yi) * xi
+                self._weight[k] -= delta
+
+                # adjusting the ith weight by this delta
+                tempw -= delta
+                
+                self._weight = tempw
+
+                grad += (hxi - yi) * xi
             
-            weightchange = np.multiply(grad, alpha)
-            self._weight = np.subtract(self._weight, weightchange)
+            weightchange = alpha * grad
+            self._weight = self._weight - weightchange
             
-            if iter % j_save_iteration == 0:
+            if iteration % cost_save_iteration == 0:
                 self._costs.append(self.cost())
         
     def cost():
