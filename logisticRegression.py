@@ -93,12 +93,19 @@ class LogReg():
         gives how many iterations there are, n dimensions, cost over time
         LogRegtrains and shit. Idk actually but we'll see. yikers.
 
-        >>> print repr(LogReg([[1, 2, 3], [0, 0, 0]], [1, 0, 0], .25, 100))
-        's'
+        >>> logReg = LogReg([[1, 2, 3], [0, 0, 0]], [1, 0, 0], .25, 100)
+        >>> logReg._costs = [4, 3, 6]
+        >>> print repr(logReg)
+        This has been trained for 100 iterations.
+        There are 8 data points.
+        Some cost values are: 4, 3, 6.
 
         """
+        datapoints = self._data.shape[0]*self._data.shape[1]
+        cost_middle = self._costs[len(self._costs)/2]
         s = 'This has been trained for %i iterations.' \
             '\nThere are %i data points.' \
-            '\nCost overflow bullshit.' % (self._maxIter, self._data.shape[0]*self._data.shape[1])
+            '\nSome cost values are: %i, %i, %i.' \
+            % (self._maxIter, datapoints, self._costs[0], cost_middle, self._costs[-1])
         
         return s 
