@@ -22,7 +22,7 @@ class LogReg():
 
         self._alpha = alpha
 
-        self._costs = [] 
+        self._costs = []
 
         self._maxIter = maxIter
 
@@ -31,13 +31,9 @@ class LogReg():
         Takes the dot product of one feature and the weight vector
         and returns the result of them entered into the sigmoid function
         """
-<<<<<<< HEAD
         dot_p = np.dot(feature, weight)
 
         np.exp(-1 * dot_p)
-
-        
-=======
         
     def train(self):
         """ trains the weight vector on the training data
@@ -60,5 +56,3 @@ class LogReg():
                 
                 self._weight[k] -= delta 
         
-
->>>>>>> e562a5686590c283222ba76093468422263f2aa3
