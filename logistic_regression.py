@@ -72,13 +72,18 @@ class LogReg():
             self._weight = np.subtract(self._weight, weightchange)
             
             # incrementing the number of iterations
-            self._current_iterations ++
+            self._current_iterations += 1
             
             if iter % j_save_iteration == 0:
                 self._costs.append(self.cost())
         
     def cost():
-        """ calculates the sum of the squared residuals of a particular weight vector 
+        """ calculates the sum of the squared residuals of a particular weight vector
+            >>> a = LogReg([],[])
+            >>> a._weights = [0,0,0]
+            >>> a._data = [0,0,0]
+            >>> a._tags = [1,1,1]
+            >>> assert a.cost() > 0
         """
         sum = 0
         
