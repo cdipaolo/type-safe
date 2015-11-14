@@ -68,7 +68,7 @@ class LogReg():
                 self._costs.append(self.cost())
         
     def cost():
-        """ calculates the cost of a particular weight vector
+        """ calculates the sum of the squared residuals of a particular weight vector
         """
         sum = 0
         
@@ -81,6 +81,11 @@ class LogReg():
         sum /= self._data.size
         
         return sum
+        
+    def costs():
+        """ returns all previous costs after some number of iterations
+        """
+        return self._costs
 
     def __repr__(self):
         """used for making the terminal look pretty. :)
