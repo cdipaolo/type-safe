@@ -22,7 +22,7 @@ class LogReg():
 
         self._alpha = alpha
 
-        self._costs = [] 
+        self._costs = []
 
         self._maxIter = maxIter
 
@@ -35,12 +35,13 @@ class LogReg():
         dot_p = np.dot(feature, weight)
 
         np.exp(-1 * dot_p)
-        
 
+        
     def train(self):
         """ trains the weight vector on the training data
         """
         alpha = self._alpha
+        tempw = np.copy(self._weight)
         
         # going through the training data _maxIter times
         for iter in range(_maxIter):
@@ -55,9 +56,14 @@ class LogReg():
                 
                 # calculating the delta by which to adjust this particular weight
                 delta = alpha * (hxi - yi) * xi
+
+                self._weight[k] -= delta
+
+                # adjusting the ith weight by this delta
+                tempw[i] -= delta
                 
-                self._weight[k] -= delta 
-        
+        self._weight = tempw
+
 
     def __repr__(self):
         """used for making the terminal look pretty. :)
