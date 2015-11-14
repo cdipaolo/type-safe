@@ -12,7 +12,7 @@ class LogReg():
         
 
         self._data = np.array(data)
-        
+
         # add a column of 1s for the y offset feature
         self._data = np.hstack(([[1]]*self._data.shape[0], self._data))
 
@@ -31,6 +31,13 @@ class LogReg():
         Takes the dot product of one feature and the weight vector
         and returns the result of them entered into the sigmoid function
         """
+<<<<<<< HEAD
+        dot_p = np.dot(feature, weight)
+
+        np.exp(-1 * dot_p)
+
+        
+=======
         
     def train(self):
         """ trains the weight vector on the training data
@@ -56,3 +63,4 @@ class LogReg():
                 
         self._weight = temp-w[i]
 
+>>>>>>> e562a5686590c283222ba76093468422263f2aa3
