@@ -36,6 +36,7 @@ class LogReg():
         """ trains the weight vector on the training data
         """
         alpha = self._alpha
+        temp-w = np.copy(self._weight)
         
         # going through the training data _maxIter times
         for iter in range(_maxIter):
@@ -51,6 +52,7 @@ class LogReg():
                 # calculating the delta by which to adjust this particular weight
                 delta = alpha * (hxi - yi) * xi
                 
-                self._weight[k] -= delta 
-        
+                temp-w[i] -= delta
+                
+        self._weight = temp-w[i]
 
