@@ -18,7 +18,7 @@ class LogReg():
 
         self._tags = np.array(tags)
 
-        self._weights = np.array()
+        self._weights = np.array([]*self._data.shape[0])
 
         self._alpha = alpha
 
@@ -27,14 +27,16 @@ class LogReg():
         self._maxIter = maxIter
 
 
-    def predict(self, feature, weight):
+    def predict(self, x):
         """
         Takes the dot product of one feature and the weight vector
         and returns the result of them entered into the sigmoid function
-        """
-        dot_p = np.dot(feature, weight)
 
-        np.exp(-1 * dot_p)
+        >>> LogReg.predict()
+        """
+        dot_p = np.dot(x, self._weight)
+
+        return (1 / (1 - np.exp(-1 * dot_p)))
 
         
     def train(self):
@@ -57,7 +59,6 @@ class LogReg():
                 # the target value
                 yi = self._tags[i]
                 
-                # calculating the delta by which to adjust this particular weight
                 grad += np.multiply((hxi - yi),xi)
             
             weightchange = np.multiply(grad, alpha)
@@ -80,3 +81,26 @@ class LogReg():
         sum /= self._data.size
         
         return sum
+=======
+                delta = alpha * (hxi - yi) * xi
+
+                self._weight[k] -= delta
+
+                # adjusting the ith weight by this delta
+                tempw[i] -= delta
+                
+        self._weight = tempw
+
+
+    def __repr__(self):
+        """used for making the terminal look pretty. :)
+        gives how many iterations there are, n dimensions, cost over time
+        LogRegtrains and shit. Idk actually but we'll see. yikers.
+
+        >>> print repr(LogReg([[1, 2, 3], [0, 0, 0]], [1, 0, 0], .25, 100))
+        's'
+
+        """
+        s = 'This has been trained for %i iterations.' + '\n' +'There are %i data points.' + '\n' +'Cost overflow bullshit.' %(self._maxIter, self._data.shape[0]*self._data.shape[1])
+        return s 
+>>>>>>> 1a4c5f84434cd1a5172ee0a622b802588307073e
