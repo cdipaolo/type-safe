@@ -110,7 +110,7 @@ class LogReg():
         gives how many iterations there are, n dimensions, cost over time
         LogRegtrains and shit. Idk actually but we'll see. yikers.
 
-        >>> logReg = LogReg([[1, 2, 3], [0, 0, 0]], [1, 0, 0], .25, 100)
+        >>> logReg = LogReg([[1, 2, 3], [0, 0, 0]], [1, 0, 0], .25, self._current_iterations)
         >>> logReg._costs = [4, 3, 6]
         >>> print repr(logReg)
         This has been trained for 0 iterations.
