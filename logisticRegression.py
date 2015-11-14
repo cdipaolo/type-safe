@@ -18,7 +18,7 @@ class LogReg():
 
         self._tags = np.array(tags)
 
-        self._weights = np.array()
+        self._weights = np.array([]*self._data.shape[0])
 
         self._alpha = alpha
 
@@ -59,9 +59,22 @@ class LogReg():
                 # calculating the delta by which to adjust this particular weight
                 delta = alpha * (hxi - yi) * xi
 
-                self._weight[k] -= delta 
-        
+                self._weight[k] -= delta
+
                 # adjusting the ith weight by this delta
                 tempw[i] -= delta
                 
         self._weight = tempw
+
+
+    def __repr__(self):
+        """used for making the terminal look pretty. :)
+        gives how many iterations there are, n dimensions, cost over time
+        LogRegtrains and shit. Idk actually but we'll see. yikers.
+
+        >>> print repr(LogReg([[1, 2, 3], [0, 0, 0]], [1, 0, 0], .25, 100))
+        's'
+
+        """
+        s = 'This has been trained for %i iterations.' + '\n' +'There are %i data points.' + '\n' +'Cost overflow bullshit.' %(self._maxIter, self._data)
+        return s 
