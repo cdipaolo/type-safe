@@ -18,14 +18,14 @@ class LogReg():
 
         self._tags = np.array(tags)
 
-        self._weights = np.array()
+        self._weights = np.array([]*self._data.shape[0])
 
         self._alpha = alpha
 
         self._costs = [] 
 
         self._maxIter = maxIter
-        
+
 
     def predict(self, feature, weight):
         """
@@ -63,6 +63,10 @@ class LogReg():
         """used for making the terminal look pretty. :)
         gives how many iterations there are, n dimensions, cost over time
         LogRegtrains and shit. Idk actually but we'll see. yikers.
+
+        >>> print repr(LogReg([[1, 2, 3], [0, 0, 0]], [1, 0, 0], .25, 100))
+        's'
+
         """
-        s = 'This has been trained for %05d iterations.' + '\n' +'There are %05d data points.' + '\n' +'Cost overflow bullshit.' % (self.maxIter, self.data)
+        s = 'This has been trained for %i iterations.' + '\n' +'There are %i data points.' + '\n' +'Cost overflow bullshit.' %(self._maxIter, self._data)
         return s 
