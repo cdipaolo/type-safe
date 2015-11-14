@@ -45,14 +45,13 @@ class LogReg():
         """ trains the weight vector on the training data
         """
         alpha = self._alpha
-        tempw = np.copy(self._weight)
         
         j_save_iteration = 5
 
         # going through the training data _maxIter times
         for iter in range(_maxIter):
             # initialize the gradient at 0
-            grad = 0
+            grad = [0] * (len(self._data[0]))
             # moving through the training data
             for i in range(self._data.size):
                 xi = self._data[i]
@@ -70,7 +69,7 @@ class LogReg():
                 self._costs.append(self.cost())
         
     def cost():
-        """ calculates the cost of a particular weight vector
+        """ calculates the sum of the squared residuals of a particular weight vector
         """
         sum = 0
         
@@ -83,6 +82,11 @@ class LogReg():
         sum /= self._data.size
         
         return sum
+        
+    def costs():
+        """ returns all previous costs after some number of iterations
+        """
+        return self._costs
 
     def __repr__(self):
         """used for making the terminal look pretty. :)
@@ -93,5 +97,8 @@ class LogReg():
         's'
 
         """
-        s = 'This has been trained for %i iterations.' + '\n' +'There are %i data points.' + '\n' +'Cost overflow bullshit.' %(self._maxIter, self._data.shape[0]*self._data.shape[1])
+        s = 'This has been trained for %i iterations.' \
+            '\nThere are %i data points.' \
+            '\nCost overflow bullshit.' % (self._maxIter, self._data.shape[0]*self._data.shape[1])
+        
         return s 
