@@ -4,13 +4,19 @@ class LogReg():
 
     #Uses logistic regression and gradient decent to optimize a weight vector
 
-    def __init__(self, data, tags, alpha, maxIter):
+    def __init__(self, data, tags, alpha=0.05, maxIter=100):
         """
         The training vector is stored in two parts, the data and the tags.
-        The data will be converted into numpy array
-        """
-        
+        The data will be converted into numpy array from a list
 
+        >>> model = LogReg([-10, -10, -10, -10, 10, 10, 10, 10], \
+                           [0, 0, 0, 0, 1, 1, 1, 1], alpha=0.01, maxIter=100)
+        >>> model.train()
+        >>> model.predict(10)
+        1
+        >>> model.predict(-10)
+        0
+        """
         self._data = np.array(data)
 
         # add a column of 1s for the y offset feature
@@ -50,16 +56,14 @@ class LogReg():
             for i in range(self._data.size):
                 xi = self._data[i]
                 # the predicted value
-                hxi = self.predict(xi)
+                y_hat = self.predict(xi)
                 # the target value
                 yi = self._tags[i]
                 
                 # calculating the delta by which to adjust this particular weight
-                delta = alpha * (hxi - yi) * xi
-
-                self._weight[k] -= delta 
+                grad = alpha * (y_hat - yi) * xi
         
                 # adjusting the ith weight by this delta
-                tempw[i] -= delta
+                tempw -= delta
                 
         self._weight = tempw
