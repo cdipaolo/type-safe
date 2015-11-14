@@ -26,6 +26,7 @@ class LogReg():
 
         self._maxIter = maxIter
 
+
     def predict(self, feature, weight):
         """
         Takes the dot product of one feature and the weight vector
@@ -34,11 +35,13 @@ class LogReg():
         dot_p = np.dot(feature, weight)
 
         np.exp(-1 * dot_p)
+
         
     def train(self):
         """ trains the weight vector on the training data
         """
         alpha = self._alpha
+        temp-w = np.copy(self._weight)
         
         # going through the training data _maxIter times
         for iter in range(_maxIter):
@@ -53,6 +56,10 @@ class LogReg():
                 
                 # calculating the delta by which to adjust this particular weight
                 delta = alpha * (hxi - yi) * xi
-                
+
                 self._weight[k] -= delta 
         
+                # adjusting the ith weight by this delta
+                temp-w[i] -= delta
+                
+        self._weight = temp-w
