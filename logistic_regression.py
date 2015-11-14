@@ -32,6 +32,7 @@ class LogReg():
 
         self._maxIter = maxIter
 
+        self._current_iterations = 0
 
     def predict(self, x):
         """
@@ -47,44 +48,42 @@ class LogReg():
         return (1 / (1 + np.exp(-1 * dot_p)))
 
         
-    def train(self, cost_save_iterations=5):
+    def train(self):
         """ trains the weight vector on the training data
         """
         alpha = self._alpha
-        
+        j_save_iteration = 5
+
         # going through the training data _maxIter times
-        for iteration in range(_maxIter):
+        for iter in range(_maxIter):
             # initialize the gradient at 0
             grad = [0] * (len(self._data[0]))
             # moving through the training data
             for i in range(self._data.size):
                 xi = self._data[i]
                 # the predicted value
-                y_hat = self.predict(xi)
+                hxi = self.predict(xi)
                 # the target value
                 yi = self._tags[i]
                 
-                # calculating the gradiend by which to adjust this particular weight
-                grad = alpha * (y_hat - yi) * xi
-                self._weight[k] -= delta
-
-                # adjusting the ith weight by this delta
-                tempw -= delta
-                
-                self._weight = tempw
-
-                grad += (hxi - yi) * xi
+                grad += np.multiply((hxi - yi),xi)
             
-            weightchange = alpha * grad
-            self._weight = self._weight - weightchange
+            weightchange = np.multiply(grad, alpha)
+            self._weight = np.subtract(self._weight, weightchange)
             
-            if iteration % cost_save_iteration == 0:
+            # incrementing the number of iterations
+            self._current_iterations += 1
+            
+            if iter % j_save_iteration == 0:
                 self._costs.append(self.cost())
         
     def cost():
         """ calculates the sum of the squared residuals of a particular weight vector
-            
-            >>> 
+            >>> a = LogReg([],[])
+            >>> a._weights = [0,0,0]
+            >>> a._data = [0,0,0]
+            >>> a._tags = [1,1,1]
+            >>> assert a.cost() > 0
         """
         sum = 0
         
@@ -92,7 +91,7 @@ class LogReg():
             y_hat = predict(self._data[i])
             y = self._tags[i]
             
-            sum += (ycaret - y)**2
+            sum += (y_hat - y)**2
         
         sum /= self._data.size
         
