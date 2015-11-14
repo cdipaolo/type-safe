@@ -31,8 +31,34 @@ class LogReg():
         Takes the dot product of one feature and the weight vector
         and returns the result of them entered into the sigmoid function
         """
+<<<<<<< HEAD
         dot_p = np.dot(feature, weight)
 
         np.exp(-1 * dot_p)
 
         
+=======
+        
+    def train(self):
+        """ trains the weight vector on the training data
+        """
+        alpha = self._alpha
+        
+        # going through the training data _maxIter times
+        for iter in range(_maxIter):
+        
+            # moving through the training data
+            for i in range(self._data.size):
+                xi = self._data[i]
+                # the predicted value
+                hxi = self.predict(xi)
+                # the target value
+                yi = self._tags[i]
+                
+                # calculating the delta by which to adjust this particular weight
+                delta = alpha * (hxi - yi) * xi
+                
+                self._weight[k] -= delta 
+        
+
+>>>>>>> e562a5686590c283222ba76093468422263f2aa3
