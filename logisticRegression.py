@@ -1,6 +1,6 @@
 import numpy as np
 
-class LogReg(self):
+class LogReg():
 
     #Uses logistic regression and gradient decent to optimize a weight vector
 
@@ -12,7 +12,9 @@ class LogReg(self):
         
 
         self._data = np.array(data)
-        self._data = 1 + self._data
+
+        # add a column of 1s for the y offset feature
+        self._data = np.hstack(([[1]]*self._data.shape[0], self._data))
 
         self._tags = np.array(tags)
 
@@ -23,14 +25,39 @@ class LogReg(self):
         self._costs = [] 
 
         self._maxIter = maxIter
+        
 
     def predict(self, feature, weight):
         """
         Takes the dot product of one feature and the weight vector
         and returns the result of them entered into the sigmoid function
         """
+        dot_p = np.dot(feature, weight)
 
+        np.exp(-1 * dot_p)
+        
 
+    def train(self):
+        """ trains the weight vector on the training data
+        """
+        alpha = self._alpha
+        
+        # going through the training data _maxIter times
+        for iter in range(_maxIter):
+        
+            # moving through the training data
+            for i in range(self._data.size):
+                xi = self._data[i]
+                # the predicted value
+                hxi = self.predict(xi)
+                # the target value
+                yi = self._tags[i]
+                
+                # calculating the delta by which to adjust this particular weight
+                delta = alpha * (hxi - yi) * xi
+                
+                self._weight[k] -= delta 
+        
 
     def __repr__(self):
         """used for making the terminal look pretty. :)
