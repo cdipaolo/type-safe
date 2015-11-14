@@ -1,6 +1,6 @@
 import numpy as np
 
-class LogReg(self):
+class LogReg():
 
     #Uses logistic regression and gradient decent to optimize a weight vector
 
@@ -12,7 +12,9 @@ class LogReg(self):
         
 
         self._data = np.array(data)
-        self._data = 1 + self._data
+        
+        # add a column of 1s for the y offset feature
+        self._data = np.hstack(([[1]]*self._data.shape[0], self._data))
 
         self._tags = np.array(tags)
 
