@@ -22,9 +22,10 @@ class LogReg():
 
         self._alpha = alpha
 
-        self._costs = [] 
+        self._costs = []
 
         self._maxIter = maxIter
+
 
     def predict(self, feature, weight):
         """
@@ -55,7 +56,9 @@ class LogReg():
                 
                 # calculating the delta by which to adjust this particular weight
                 delta = alpha * (hxi - yi) * xi
-                
+
+                self._weight[k] -= delta 
+        
                 # adjusting the ith weight by this delta
                 tempw[i] -= delta
                 
