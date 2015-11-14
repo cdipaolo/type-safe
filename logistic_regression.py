@@ -17,6 +17,7 @@ class LogReg():
         >>> model.predict(-10)
         0
         """
+
         self._data = np.array(data)
 
         # add a column of 1s for the y offset feature
@@ -24,7 +25,9 @@ class LogReg():
 
         self._tags = np.array(tags)
 
-        self._weights = np.array([0]*self._data.shape[0])
+        assert _data.shape[0] == _tags.size, "Number of tags not equal to number of data sets"
+
+        self._weights = np.array([69]*self._data.shape[0])
 
         self._alpha = alpha
 
